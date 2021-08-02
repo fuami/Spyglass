@@ -1,0 +1,16 @@
+{
+	"type": "code",
+	"Name": "Spyglass",
+	"Website": "https://github.com/fuami/Spyglass",
+	"ModID": "spyglass",
+	"Authors": [
+		"Fuami"
+	],
+	"Contributors": [],
+	"Side": "Universal",
+	"RequiredOnClient": true,
+	"RequiredOnServer": true,
+	"description": "Adds a spyglass so you can spy on your neighbors from the safety of your windmill!",
+	"version": "0.2.0",
+	"Dependencies": {}
+}

@@ -1,0 +1,21 @@
+{
+	ingredientPattern: "T,G,T",
+	ingredients: {
+		"T": {
+			type: "item",
+			code: "spytube-*",
+			name: "metal"
+		},
+		"G": {
+			"type": "block",
+			"code": "game:glass-plain"
+		}
+	},
+	width: 1,
+	height: 3,
+	output: {
+		type: "item",
+		code: "spyglass-{metal}",
+		quantity: 1
+	}
+}
