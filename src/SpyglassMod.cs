@@ -14,6 +14,7 @@ namespace spyglass.src
     {
         public static bool zoomed = false;
         private static ClientManipulation cm;
+        internal static double gameRuntime = 0;
 
         public override void Start(ICoreAPI api)
         {
@@ -24,6 +25,12 @@ namespace spyglass.src
         public override void StartClientSide(ICoreClientAPI api)
         {
             cm = new ClientManipulation(api);
+            api.Event.RegisterGameTickListener(OnGameTick, 4); // 250 max fps - This is a simple light weight add too, so shouldn't make a diffrence.
+        }
+
+        private void OnGameTick(float dt)
+        {
+            gameRuntime += (double)dt;
         }
 
         public override void Dispose()

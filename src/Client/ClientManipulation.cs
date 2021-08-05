@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using spyglass.src.Client;
 using Vintagestory.API.Client;
 
 namespace spyglass.src
@@ -16,9 +17,9 @@ namespace spyglass.src
         private static bool currentMode = false;
 
         // timing tracking.
-        static Stopwatch lastChange;
-        static Stopwatch zoomTime;
-        static Stopwatch unzoomTime;
+        static ClientTime lastChange;
+        static ClientTime zoomTime;
+        static ClientTime unzoomTime;
 
         // state
         static float currentZoom = 1.0f;
@@ -71,28 +72,21 @@ namespace spyglass.src
             return (1.0f - GetLinearZoom()) * (percentUnzoomed - percentZoomed) + percentZoomed;
         }
 
-        public static bool zoomed()
+        public static bool IsZoomed()
         {
             return SpyglassMod.zoomed;
         }
 
         public static float GetLinearZoom()
         {
-            if (capi.IsGamePaused)
-            {
-                // just hold zoom, this isn't perfect, ( it will just snap out of the animation when unpaused )
-                // but I'm not sure its worht the effort to improve it.
-                return lastZoom;
-            }
-
-            if (currentMode != zoomed() && lastChange != null)
+            if (currentMode != IsZoomed() && lastChange != null)
             {
                 if (lastChange.ElapsedMilliseconds > 250)
-                    currentMode = zoomed();
+                    currentMode = IsZoomed();
             }
             else if (lastChange == null)
             {
-                lastChange = Stopwatch.StartNew();
+                lastChange = ClientTime.StartNew();
             }
 
             if (currentMode)
@@ -101,7 +95,7 @@ namespace spyglass.src
 
                 if (zoomTime == null)
                 {
-                    lastChange = zoomTime = Stopwatch.StartNew();
+                    lastChange = zoomTime = ClientTime.StartNew();
                     currentZoom = lastZoom;
                 }
 
@@ -113,7 +107,7 @@ namespace spyglass.src
 
                 if (unzoomTime == null)
                 {
-                    lastChange = unzoomTime = Stopwatch.StartNew();
+                    lastChange = unzoomTime = ClientTime.StartNew();
                     currentZoom = lastZoom;
                 }
 
@@ -121,7 +115,7 @@ namespace spyglass.src
             }
         }
 
-        private static float ZoomInterpolate(float f, float s, long timeSinceStart)
+        private static float ZoomInterpolate(float f, float s, float timeSinceStart)
         {
             float transitionLength = Math.Abs(f - s);
 
