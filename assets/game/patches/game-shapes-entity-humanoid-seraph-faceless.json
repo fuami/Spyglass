@@ -1,0 +1,38 @@
+[
+  {
+    "op": "add",
+    "path": "/animations/-",
+    "value":
+      {
+        "name": "Spyglassing",
+        "code": "spyglassing",
+        "quantityframes": 15,
+        "onActivityStopped": "EaseOut",
+        "onAnimationEnd": "Repeat",
+        "keyframes": [
+          {
+            "frame": 0,
+            "elements": {
+              "UpperArmR": {
+                "offsetX": 0.0,
+                "offsetY": 0.0,
+                "offsetZ": 0.0,
+                "rotationX": 24.0,
+                "rotationY": -8.0,
+                "rotationZ": -63.0
+              },
+              "LowerArmR": {
+                "offsetX": 0.0,
+                "offsetY": 0.0,
+                "offsetZ": 0.0,
+                "rotationX": -3.0,
+                "rotationY": 17.0,
+                "rotationZ": -119.0
+              }
+            }
+          }
+        ]
+      }    ,
+    "file": "shapes/entity/humanoid/seraph-faceless.json"
+  }
+]

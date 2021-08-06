@@ -81,6 +81,8 @@
     <Compile Include="src\SpyglassMod.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\game\patches\game-entities-humanoid-player.json" />
+    <None Include="assets\game\patches\game-shapes-entity-humanoid-seraph-faceless.json" />
     <None Include="assets\spyglass\itemtypes\spyglass.json" />
     <None Include="assets\spyglass\itemtypes\spytube.json" />
     <None Include="assets\spyglass\lang\en.json" />

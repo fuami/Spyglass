@@ -1,0 +1,22 @@
+[
+  {
+    "op": "add",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "spyglassing",
+      "animation": "spyglassing",
+      "animationSpeed": 1.2,
+      "blendMode": "Add",
+      "weight": 200,
+      "elementWeight": {
+        "UpperArmR": 200,
+        "LowerArmR": 200
+      },
+      "elementBlendMode": {
+        "UpperArmR": "AddAverage",
+        "LowerArmR": "AddAverage"
+      }
+    },
+    "file": "entities/humanoid/player.json"
+  }
+]
