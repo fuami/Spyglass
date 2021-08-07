@@ -11,34 +11,30 @@ namespace spyglass.src
 {
     class ClientManipulation
     {
-        private static ICoreClientAPI capi;
-
         // prevent instant cycling by buffering changes when they are too fast.
-        private static bool currentMode = false;
-
-        // timing tracking.
+        private static bool isZoomed = false;
         static ClientTime lastChange;
-        static ClientTime zoomTime;
-        static ClientTime unzoomTime;
 
         // state
-        static float currentZoom = 1.0f;
-        static float lastZoom = 1.0f;
         static EnumCameraMode realCameraMode = EnumCameraMode.FirstPerson;
         static bool resetCameraMode = false;
 
         // settings.
-        static readonly float percentZoomed = 0.1f;
+        static readonly float percentZoomed = 0.08f;
         static readonly float percentUnzoomed = 1.0f;
-        static readonly float timeTillZoomed = 550f;
+        static readonly float fullZoomTotalTime = 525f; // ms
 
+        // animation state
+        static readonly UpdateableTween zoomAnimation = new UpdateableTween(0f, fullZoomTotalTime);
+
+        // track patches.
         private readonly ClientPatcher patcher;
 
-        public ClientManipulation(ICoreClientAPI api)
+        public ClientManipulation(Vintagestory.API.Common.ILogger logger)
         {
             patcher = new ClientPatcher();
-            patcher.Start();
-            capi = api;
+            patcher.Start(logger);
+            lastChange = ClientTime.Eariler();
         }
 
         public void Dispose()
@@ -48,7 +44,7 @@ namespace spyglass.src
 
         public static EnumCameraMode HandleCameraMode(EnumCameraMode mode)
         {
-            if (GetLinearZoom() != 0)
+            if (getPercentZoomed() > 0.001f)
             {
                 resetCameraMode = true;
                 return EnumCameraMode.FirstPerson;
@@ -64,65 +60,41 @@ namespace spyglass.src
 
         public static double GetSensitivityMultiplier()
         {
-            return 1.0 + 2.0 * GetLinearZoom();
+            return 1.0 + 2.0 * getPercentZoomed();
         }
 
         public static float GetZoomAdjust()
         {
-            return (1.0f - GetLinearZoom()) * (percentUnzoomed - percentZoomed) + percentZoomed;
+            return (1.0f - getPercentZoomed()) * (percentUnzoomed - percentZoomed) + percentZoomed;
         }
 
-        public static bool IsZoomed()
+        public static bool AttemptingToZoom()
         {
             return SpyglassMod.zoomed;
         }
 
-        public static float GetLinearZoom()
+        public static float getPercentZoomed()
         {
-            if (currentMode != IsZoomed() && lastChange != null)
+            if (isZoomed != AttemptingToZoom())
             {
                 if (lastChange.ElapsedMilliseconds > 250)
-                    currentMode = IsZoomed();
-            }
-            else if (lastChange == null)
-            {
-                lastChange = ClientTime.StartNew();
-            }
-
-            if (currentMode)
-            {
-                unzoomTime = null;
-
-                if (zoomTime == null)
                 {
-                    lastChange = zoomTime = ClientTime.StartNew();
-                    currentZoom = lastZoom;
+                    isZoomed = AttemptingToZoom();
+                    lastChange = ClientTime.StartNew();
                 }
+            }
 
-                return lastZoom = ZoomInterpolate(currentZoom, 1f, zoomTime.ElapsedMilliseconds);
+            if (isZoomed)
+            {
+                return zoomAnimation.getValue(SpyglassMod.zoomRatio);
             }
             else
             {
-                zoomTime = null;
-
-                if (unzoomTime == null)
-                {
-                    lastChange = unzoomTime = ClientTime.StartNew();
-                    currentZoom = lastZoom;
-                }
-
-                return lastZoom = ZoomInterpolate(currentZoom, 0f, unzoomTime.ElapsedMilliseconds);
+                SpyglassMod.ResetZoomRatio();
+                return zoomAnimation.getValue(0f);
             }
         }
 
-        private static float ZoomInterpolate(float f, float s, float timeSinceStart)
-        {
-            float transitionLength = Math.Abs(f - s);
-
-            float mu = Math.Max(0f, Math.Min(1f, timeSinceStart / (timeTillZoomed * transitionLength)));
-            float mu2 = (1f - (float)Math.Cos(mu * Math.PI)) / 2f;
-            return (f * (1f - mu2) + s * mu2);
-        }
 
     }
 }

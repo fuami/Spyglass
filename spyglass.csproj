@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>$(AppData)\Vintagestory\Lib\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +51,7 @@
     </Reference>
     <Reference Include="VintagestoryLib">
       <HintPath>$(AppData)\Vintagestory\VintagestoryLib.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="VSSurvivalMod">
       <HintPath>$(AppData)\Vintagestory\Mods\VSSurvivalMod.dll</HintPath>
@@ -74,9 +76,16 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Client\Patches\BasePatch.cs" />
+    <Compile Include="src\Client\Util\GameWheel.cs" />
     <Compile Include="src\Client\ClientManipulation.cs" />
     <Compile Include="src\Client\ClientPatcher.cs" />
-    <Compile Include="src\Client\ClientTime.cs" />
+    <Compile Include="src\Client\Util\ClientTime.cs" />
+    <Compile Include="src\Client\Patches\OnBeforeRenderFrame3D.cs" />
+    <Compile Include="src\Client\Patches\OnMouseMove.cs" />
+    <Compile Include="src\Client\Patches\Set3DProjection.cs" />
+    <Compile Include="src\Client\ZoomWheel.cs" />
+    <Compile Include="src\Client\Util\UpdateableTween.cs" />
     <Compile Include="src\ItemSpyglass.cs" />
     <Compile Include="src\SpyglassMod.cs" />
   </ItemGroup>

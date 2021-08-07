@@ -8,15 +8,23 @@ namespace spyglass.src.Client
 {
     class ClientTime
     {
-        double startTime = 0;
+        private double startTime;
 
         public float ElapsedMilliseconds { get => (float)(SpyglassMod.gameRuntime - startTime) * 1000f; }
 
         internal static ClientTime StartNew()
         {
-            ClientTime v = new ClientTime();
-            v.startTime = SpyglassMod.gameRuntime;
-            return v;
+            return new ClientTime
+            {
+                startTime = SpyglassMod.gameRuntime
+            };
+        }
+
+        internal static ClientTime Eariler()
+        {
+            return new ClientTime {
+                startTime = SpyglassMod.gameRuntime - 30 // 30 seconds should do.
+            };
         }
     }
 }

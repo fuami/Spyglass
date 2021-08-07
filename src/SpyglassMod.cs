@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using spyglass.src.Client;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.Client.NoObf;
@@ -12,9 +13,16 @@ namespace spyglass.src
 {
     class SpyglassMod : ModSystem
     {
-        public static bool zoomed = false;
-        private static ClientManipulation cm;
-        internal static double gameRuntime = 0;
+        public static bool zoomed = false; // enabled by item.
+        internal static float zoomRatio = 0.97f; // adjusted via mouse-wheel while zoomed.
+
+        private static ClientManipulation clientLogic;
+        internal static double gameRuntime = 0; // used by Util/ClientTime
+
+        internal static void ResetZoomRatio()
+        {
+            zoomRatio = 0.97f;
+        }
 
         public override void Start(ICoreAPI api)
         {
@@ -24,7 +32,8 @@ namespace spyglass.src
 
         public override void StartClientSide(ICoreClientAPI api)
         {
-            cm = new ClientManipulation(api);
+            clientLogic = new ClientManipulation(api.Logger);
+            api.Gui.RegisterDialog(new[]{ new ZoomWheel(api) });
             api.Event.RegisterGameTickListener(OnGameTick, 4); // 250 max fps - This is a simple light weight add too, so shouldn't make a diffrence.
         }
 
@@ -35,11 +44,12 @@ namespace spyglass.src
 
         public override void Dispose()
         {
-            if ( cm != null )
+            if ( clientLogic != null )
             {
-                cm.Dispose();
-                cm = null;
+                clientLogic.Dispose();
+                clientLogic = null;
             }
         }
+
     }
 }
