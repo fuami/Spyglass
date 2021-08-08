@@ -87,6 +87,7 @@
     <Compile Include="src\Client\ZoomWheel.cs" />
     <Compile Include="src\Client\Util\UpdateableTween.cs" />
     <Compile Include="src\ItemSpyglass.cs" />
+    <Compile Include="src\SpyglassConfig.cs" />
     <Compile Include="src\SpyglassMod.cs" />
   </ItemGroup>
   <ItemGroup>

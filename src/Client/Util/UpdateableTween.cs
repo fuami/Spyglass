@@ -16,6 +16,7 @@ namespace spyglass.src.Client
 
         public UpdateableTween( float startValue, float transitionLength)
         {
+            if (transitionLength < 1f) transitionLength = 1f;
             this.startTime = ClientTime.Eariler();
             this.startValue = startValue;
             this.targetValue = startValue;

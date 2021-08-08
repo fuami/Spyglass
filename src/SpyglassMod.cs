@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,14 @@ namespace spyglass.src
         private static ClientManipulation clientLogic;
         internal static double gameRuntime = 0; // used by Util/ClientTime
 
+        private static string configFile = "spyglass.json";
+        private static SpyglassConfig loadedConfig;
+
+        public static SpyglassConfig config
+        {
+            get => loadedConfig;
+        }
+
         internal static void ResetZoomRatio()
         {
             zoomRatio = 0.97f;
@@ -27,6 +36,18 @@ namespace spyglass.src
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
+
+            try
+            {
+                loadedConfig = api.LoadModConfig<SpyglassConfig>(configFile);
+                if (loadedConfig == null) throw new FileNotFoundException();
+            }
+            catch (Exception)
+            {
+                loadedConfig = new SpyglassConfig();
+                api.StoreModConfig<SpyglassConfig>(loadedConfig, configFile);
+            }
+
             api.RegisterItemClass("spyglass:ItemSpyglass", typeof(ItemSpyglass));
         }
 

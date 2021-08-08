@@ -22,16 +22,17 @@ namespace spyglass.src
         // settings.
         static readonly float percentZoomed = 0.08f;
         static readonly float percentUnzoomed = 1.0f;
-        static readonly float fullZoomTotalTime = 525f; // ms
 
         // animation state
-        static readonly UpdateableTween zoomAnimation = new UpdateableTween(0f, fullZoomTotalTime);
+        static UpdateableTween zoomAnimation;
 
         // track patches.
         private readonly ClientPatcher patcher;
 
         public ClientManipulation(Vintagestory.API.Common.ILogger logger)
         {
+            zoomAnimation = new UpdateableTween(0f, SpyglassMod.config.transitionTimeBasis);
+
             patcher = new ClientPatcher();
             patcher.Start(logger);
             lastChange = ClientTime.Eariler();
@@ -42,17 +43,28 @@ namespace spyglass.src
             patcher.Stop();
         }
 
+        internal static bool EnableEffect()
+        {
+            if (!SpyglassMod.config.enableZoomInThirdPerson && realCameraMode != EnumCameraMode.FirstPerson)
+                return false;
+
+            return true;
+        }
+
         public static EnumCameraMode HandleCameraMode(EnumCameraMode mode)
         {
-            if (getPercentZoomed() > 0.001f)
+            if (EnableEffect())
             {
-                resetCameraMode = true;
-                return EnumCameraMode.FirstPerson;
-            }
-            else if (resetCameraMode)
-            {
-                resetCameraMode = false;
-                return realCameraMode;
+                if (getPercentZoomed() > 0.001f)
+                {
+                    resetCameraMode = true;
+                    return EnumCameraMode.FirstPerson;
+                }
+                else if (resetCameraMode)
+                {
+                    resetCameraMode = false;
+                    return realCameraMode;
+                }
             }
 
             return realCameraMode = mode;
@@ -60,12 +72,16 @@ namespace spyglass.src
 
         public static double GetSensitivityMultiplier()
         {
-            return 1.0 + 2.0 * getPercentZoomed();
+            if (EnableEffect())
+                return 1.0 + SpyglassMod.config.mouseSensitivityAdjustment * getPercentZoomed();
+            return 1.0;
         }
 
         public static float GetZoomAdjust()
         {
-            return (1.0f - getPercentZoomed()) * (percentUnzoomed - percentZoomed) + percentZoomed;
+            if (EnableEffect())
+                return (1.0f - getPercentZoomed()) * (percentUnzoomed - percentZoomed) + percentZoomed;
+            return 1.0f;
         }
 
         public static bool AttemptingToZoom()
@@ -77,7 +93,7 @@ namespace spyglass.src
         {
             if (isZoomed != AttemptingToZoom())
             {
-                if (lastChange.ElapsedMilliseconds > 250)
+                if (lastChange.ElapsedMilliseconds > SpyglassMod.config.minimumZoomTime)
                 {
                     isZoomed = AttemptingToZoom();
                     lastChange = ClientTime.StartNew();

@@ -8,8 +8,10 @@ using Vintagestory.API.Client;
 namespace spyglass.src.Client
 {
 	// base class that allows using OnMouseWheel without breaking things.
-	class GameWheel : HudElement
+	abstract class GameWheel : HudElement
 	{
+		private bool wasEnabled = false;
+
 		public override bool Focusable
 		{
 			get => false;
@@ -22,7 +24,7 @@ namespace spyglass.src.Client
 
 		public GameWheel(ICoreClientAPI capi) : base(capi)
 		{
-			SingleComposer = capi.Gui.CreateCompo("gamewheel", ElementBounds.Fill).Compose(true);
+			SingleComposer = capi.Gui.CreateCompo("gamewheel", ElementBounds.Empty).Compose(true);
 		}
 
 		public override bool TryClose()
@@ -33,6 +35,32 @@ namespace spyglass.src.Client
 		public override void OnOwnPlayerDataReceived()
 		{
 			TryOpen();
+		}
+		public override void OnRenderGUI(float deltaTime)
+		{
+			if ( wasEnabled != IsEnabled() )
+			{
+				wasEnabled = !wasEnabled;
+				SingleComposer = adjustCompose( capi.Gui.CreateCompo("gamewheel", wasEnabled ? ElementBounds.Fill : ElementBounds.Empty) ).Compose(true);
+			}
+
+			if (wasEnabled)
+			{
+				BeforeRenderGUI(deltaTime);
+				base.OnRenderGUI(deltaTime);
+			}
+		}
+
+		// when enabled some mouse actions are blocked, so best only enable when in use.
+		public abstract bool IsEnabled();
+
+		public virtual void BeforeRenderGUI(float deltaTime)
+		{
+		}
+
+		public virtual GuiComposer adjustCompose(GuiComposer composer)
+		{
+			return composer;
 		}
 
 		public override void OnMouseDown(MouseEvent args)
