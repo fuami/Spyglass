@@ -2,20 +2,40 @@
 	"code": "spyglass",
 	"class": "spyglass:ItemSpyglass",
 	"attributes": {
+		"displaycaseable": true,
+		"shelvable": true,
 		"handbook": {
 			"groupBy": [ "spyglass-*" ]
 		},
 		"toolrackTransform": {
 			"rotation": {
-				"y": 1,
+				"y": 22.5,
 				"z": -1
 			},
 			"translation": {
-				"x": 0.1,
-				"y": 0.05,
-				"z": -0.2
+				"x": -0.0,
+				"y": 0.01,
+				"z": -0.3
 			},
 			"scale": 1.25
+		},
+		"onDisplayTransform": {
+			"translation": {
+				"x": 0.03,
+				"y": -0.3725,
+				"z": -0.08
+			},
+			"rotation": {
+				"x": 0,
+				"y": 0,
+				"z": 1.5
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0.25,
+				"z": 0.5
+			},
+			"scale": 0.6
 		},
 		"rackable": true
 	},
@@ -31,6 +51,7 @@
 				"silver",
 				"iron",
 				"meteoriciron",
+				"brass",
 				"steel"
 			]
 		}
@@ -40,10 +61,13 @@
 	"heldTpHitAnimation": "breaktool",
 	"texturesByType": {
 		"*": {
-			"metal": {
-				"base": "game:block/metal/ingot/{metal}"
+			"glass": {
+					"base": "game:item/resource/ungraded/clearquartz"
+				},
+				"metal": {
+					"base": "game:block/metal/ingot/{metal}"
+				}
 			}
-		}
 	},
 	"tooltierbytype": {
 		"spyglass-copper": 2,
@@ -64,6 +88,10 @@
 		"*-copper": {
 			"wood": 4,
 			"leaves": 2.4
+		},
+		"*-brass": {
+			"wood": 4.1,
+			"leaves": 2.5
 		},
 		"*-bismuthbronze": {
 			"wood": 4.4,
@@ -100,6 +128,7 @@
 	},
 	"durabilitybytype": {
 		"spyglass-gold": 35,
+		"spyglass-brass": 130,
 		"spyglass-silver": 45,
 		"spyglass-copper": 125,
 		"spyglass-tinbronze": 200,

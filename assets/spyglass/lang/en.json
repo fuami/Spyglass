@@ -7,6 +7,7 @@
   "item-spytube-silver": "Silver spytube half",
   "item-spytube-iron": "Iron spytube half",
   "item-spytube-meteoriciron": "Meteoric iron spytube half",
+  "item-spytube-brass": "Brass spytube half",
   "item-spytube-steel": "Steel spytube half",
 
   "item-spyglass-copper": "Copper spyglass",
@@ -17,5 +18,6 @@
   "item-spyglass-silver": "Silver spyglass",
   "item-spyglass-iron": "Iron spyglass",
   "item-spyglass-meteoriciron": "Meteoric iron spyglass",
+  "item-spyglass-brass": "Brass spyglass",
   "item-spyglass-steel": "Steel spyglass"
 }

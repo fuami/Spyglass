@@ -25,9 +25,15 @@ namespace spyglass.src
             harmony = new Harmony("spyglass");
 
             BasePatch[] patches = new BasePatch[] {
-                new OnBeforeRenderFrame3D(),
-                new Set3DProjection(),
-                new OnMouseMove()
+                new Client.Patches.OnBeforeRenderFrame3D(),
+                new Client.Patches.Set3DProjection(),
+                new Client.Patches.OnMouseMove(),
+                new Client.Patches.GuiDialogWorldMapPatch(), // minimap
+                new Client.Patches.HudStatbarPatch(), // health, and food
+                new Client.Patches.HudHotbarPatch(), // items and backpacks
+                new Client.Patches.HudElementCoordinatesPatch(), // player location
+                new Client.Patches.HudElementBlockInteractionHelpPatch(), // popup information on how to use stuff
+                new Client.Patches.HudIngameErrorPatch() // black bar at the bottom.
             };
 
             foreach ( var patch in patches )

@@ -27,8 +27,8 @@ namespace spyglass.src.Client
 
 		public override GuiComposer adjustCompose(GuiComposer composer)
 		{
-			composer.Color = new Vec4f(0f, 0f, 0f, 0f);
-			return composer.AddInset(ElementBounds.Fill, SpyglassMod.config.edgeSize, SpyglassMod.config.glassBrightness);
+			composer.Color = new Vec4f(1f, 1f, 1f, 0f);
+			return composer.AddInteractiveElement(new SpyglassOverlay(capi,ElementBounds.Fill, SpyglassMod.config.edgeSize, SpyglassMod.config.glassColor, SpyglassMod.config.glassBrightness));
 		}
 
 		public override void OnMouseWheel(MouseWheelEventArgs args)

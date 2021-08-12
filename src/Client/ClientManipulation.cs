@@ -13,18 +13,19 @@ namespace spyglass.src
     {
         // prevent instant cycling by buffering changes when they are too fast.
         private static bool isZoomed = false;
-        static ClientTime lastChange;
+        private static ClientTime lastChange;
 
         // state
-        static EnumCameraMode realCameraMode = EnumCameraMode.FirstPerson;
-        static bool resetCameraMode = false;
+        private static EnumCameraMode realCameraMode = EnumCameraMode.FirstPerson;
+        private static bool resetCameraMode = false;
+
 
         // settings.
-        static readonly float percentZoomed = 0.08f;
-        static readonly float percentUnzoomed = 1.0f;
+        private static readonly float percentZoomed = 0.08f;
+        private static readonly float percentUnzoomed = 1.0f;
 
         // animation state
-        static UpdateableTween zoomAnimation;
+        private static UpdateableTween zoomAnimation;
 
         // track patches.
         private readonly ClientPatcher patcher;
@@ -87,6 +88,11 @@ namespace spyglass.src
         public static bool AttemptingToZoom()
         {
             return SpyglassMod.zoomed;
+        }
+
+        public static bool hideGuis()
+        {
+            return isZoomed && getPercentZoomed() > 0.01;
         }
 
         public static float getPercentZoomed()

@@ -12,6 +12,7 @@ namespace spyglass.src
         public float edgeOpacity = 0.5f; // transparency of edge
 
         public float glassBrightness = 1.0f; // less then 1.0, will dim the view when using spyglass
+        public float glassColor = 0.94f; // the brightness of the glass material, by default this is nearly white like quartz.
 
         public float transitionTimeBasis = 525f; // ms to do a complete zoom ( rougly ), higher slows animation, lower quickens it.
         public float minimumZoomTime = 250f; // minimum time using spyglass.
@@ -20,5 +21,7 @@ namespace spyglass.src
 
         public bool enableMouseWheelAdjustment = true; // mouse wheel while using spyglass adjustment
         public bool enableZoomInThirdPerson = true; // if disabled you will just see your character use the spyglass.
+
+        public bool hideHUDWhileSpying = true; // removes minimap/coordinates/statsbar/hotbar to focus only on the what your looking at.
     }
 }
