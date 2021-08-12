@@ -53,7 +53,7 @@ namespace spyglass.src
 
         public override void StartClientSide(ICoreClientAPI api)
         {
-            clientLogic = new ClientManipulation(api.Logger);
+            clientLogic = new ClientManipulation(api);
             api.Gui.RegisterDialog(new[]{ new ZoomWheel(api) });
             api.Event.RegisterGameTickListener(OnGameTick, 4); // 250 max fps - This is a simple light weight add too, so shouldn't make a diffrence.
         }

@@ -14,7 +14,7 @@ namespace spyglass.src.Client.Patches
     {
         public static bool HideGui(GuiDialog target)
         {
-            return ClientManipulation.hideGuis();
+            return ClientManipulation.HideGuis();
         }
 
         public static IEnumerable<CodeInstruction> AdjustGuiOpacity_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator g)

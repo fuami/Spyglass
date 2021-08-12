@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using spyglass.src.Client;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 
 namespace spyglass.src
 {
@@ -14,6 +15,7 @@ namespace spyglass.src
         // prevent instant cycling by buffering changes when they are too fast.
         private static bool isZoomed = false;
         private static ClientTime lastChange;
+        private static ICoreClientAPI capi;
 
         // state
         private static EnumCameraMode realCameraMode = EnumCameraMode.FirstPerson;
@@ -30,12 +32,13 @@ namespace spyglass.src
         // track patches.
         private readonly ClientPatcher patcher;
 
-        public ClientManipulation(Vintagestory.API.Common.ILogger logger)
+        public ClientManipulation(ICoreClientAPI capi)
         {
+            ClientManipulation.capi = capi;
             zoomAnimation = new UpdateableTween(0f, SpyglassMod.config.transitionTimeBasis);
 
             patcher = new ClientPatcher();
-            patcher.Start(logger);
+            patcher.Start(capi.Logger);
             lastChange = ClientTime.Eariler();
         }
 
@@ -87,10 +90,20 @@ namespace spyglass.src
 
         public static bool AttemptingToZoom()
         {
-            return SpyglassMod.zoomed;
+            // validate if we can in fact, zoom.
+            int slotIndex = capi.World.Player.InventoryManager.ActiveHotbarSlotNumber;
+            ItemSlot itemSlot = capi.World.Player.InventoryManager.GetHotbarInventory()[slotIndex];
+
+            AssetLocation code = itemSlot?.Itemstack?.Item?.Code;
+            if (code != null && code.BeginsWith("spyglass", "spyglass-"))
+            {
+                return SpyglassMod.zoomed;
+            }
+
+            return SpyglassMod.zoomed = false;
         }
 
-        public static bool hideGuis()
+        public static bool HideGuis()
         {
             return isZoomed && getPercentZoomed() > 0.01;
         }
