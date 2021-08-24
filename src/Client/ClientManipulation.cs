@@ -74,6 +74,11 @@ namespace spyglass.src
             return realCameraMode = mode;
         }
 
+        internal static bool IsLocalPlayer(EntityAgent byEntity)
+        {
+            return capi.World.Player.Entity == byEntity;
+        }
+
         public static double GetSensitivityMultiplier()
         {
             if (EnableEffect())

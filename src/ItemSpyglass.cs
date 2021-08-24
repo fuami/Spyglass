@@ -19,25 +19,36 @@ namespace spyglass.src
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
             handling = EnumHandHandling.Handled;
-            SpyglassMod.zoomed = true;
+            updateState(true, byEntity);
         }
 
         public override bool OnHeldInteractStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel)
         {
-            SpyglassMod.zoomed = true;
+            updateState(true, byEntity);
             return true;
         }
 
         public override void OnHeldInteractStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel)
         {
-            SpyglassMod.zoomed = false;
+            updateState(false, byEntity);
         }
 
         public override bool OnHeldInteractCancel(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, EnumItemUseCancelReason cancelReason)
         {
-            SpyglassMod.zoomed = false;
+            updateState(false, byEntity);
             return true;
         }
-                
+
+        private void updateState(bool newState, EntityAgent byEntity)
+        {
+            if (byEntity.World.Side == EnumAppSide.Client)
+            {
+                if (ClientManipulation.IsLocalPlayer(byEntity))
+                {
+                    SpyglassMod.zoomed = newState;
+                }
+            }
+        }
     }
+
 }
