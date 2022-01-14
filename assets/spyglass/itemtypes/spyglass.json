@@ -7,6 +7,19 @@
 		"handbook": {
 			"groupBy": [ "spyglass-*" ]
 		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.015,
+				"y": -0.235,
+				"z": -0.055
+			},
+			"rotation": {
+				"x": 0,
+				"y": 45,
+				"z": 1.5
+			},
+			"scale": 0.95
+		},
 		"toolrackTransform": {
 			"rotation": {
 				"y": 22.5,
@@ -58,16 +71,22 @@
 	],
 	"damagedby": [ "blockbreaking", "attacking" ],
 	"shape": { "base": "item/spyglass" },
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": { "layout": "Quadrants" }
+		}
+	],
 	"heldTpHitAnimation": "breaktool",
 	"texturesByType": {
 		"*": {
 			"glass": {
-					"base": "game:item/resource/ungraded/clearquartz"
-				},
-				"metal": {
-					"base": "game:block/metal/ingot/{metal}"
-				}
+				"base": "game:item/resource/ungraded/clearquartz"
+			},
+			"metal": {
+				"base": "game:block/metal/ingot/{metal}"
 			}
+		}
 	},
 	"tooltierbytype": {
 		"spyglass-copper": 2,
