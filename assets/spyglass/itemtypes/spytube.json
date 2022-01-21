@@ -1,9 +1,9 @@
 {
-	code: "spytube",
-	variantgroups: [
+	"code": "spytube",
+	"variantgroups": [
 		{
-			code: "metal",
-			states: [
+			"code": "metal",
+			"states": [
 				"copper",
 				"tinbronze",
 				"bismuthbronze",
@@ -15,33 +15,93 @@
 				"brass",
 				"steel"
 			]
-		},
+		}
 	],
-	shape: { base: "item/spytube" },
-	textures: {
+	"shape": { "base": "item/spytube" },
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": { "layout": "Quadrants" }
+		}
+	],
+	"attributes": {
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0.025,
+				"y": -0.055,
+				"z": 0.02
+			},
+			"scale": 0.89
+		}
+	},
+	"textures": {
 		"metal": { "base": "game:block/metal/ingot/{metal}" }
 	},
-	creativeinventory: { "general": ["*"], "items": ["*"], "mechanics": ["*"] },
-	fpHandTransform: {
-		translation: { x: 0.3, y: -0.4, z: 0 },
-		rotation: { x: 15, y: 15, z: 90 },
-		scale: 2.5
+	"creativeinventory": {
+		"general": [ "*" ],
+		"items": [ "*" ],
+		"mechanics": [ "*" ]
 	},
-	guiTransform: {
-		translation: { x: 0, y: 0, z: 0 },
-		rotation: { x: -52, y: -131, z: -180 },
-		origin: { x: 0.48, y: 0.14, z: 0.53 },
-		scale: 2.6
+	"fpHandTransform": {
+		"translation": {
+			"x": 0.3,
+			"y": -0.4,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": 15,
+			"z": 90
+		},
+		"scale": 2.5
 	},
-	groundTransform: {
-		translation: { x: 0, y: 0, z: 0 },
-		rotation: { x: 0, y: 0, z: 0 },
-		origin: { x: 0.8, y: 0, z: 0.5 },
-		scale: 3.9
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -52,
+			"y": -131,
+			"z": -180
+		},
+		"origin": {
+			"x": 0.48,
+			"y": 0.14,
+			"z": 0.53
+		},
+		"scale": 2.6
 	},
-	tpHandTransform: {
-		translation: { x: -0.65, y: -0.68, z: -0.14 },
-		rotation: { x: 109, y: -89, z: 1 },
-		scale: 0.8
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.8,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.9
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.65,
+			"y": -0.68,
+			"z": -0.14
+		},
+		"rotation": {
+			"x": 109,
+			"y": -89,
+			"z": 1
+		},
+		"scale": 0.8
 	}
 }

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE3598C7-CC2A-42DB-B12D-F8CC6BD60929}</ProjectGuid>
+    <ProjectGuid>{9374EA72-6E45-4EBB-9D6F-23A28E28D32A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>spyglass</RootNamespace>
@@ -89,6 +89,7 @@
     <Compile Include="src\Client\Patches\HudHotbarPatch.cs" />
     <Compile Include="src\Client\Patches\HudIngameErrorPatch.cs" />
     <Compile Include="src\Client\Patches\HudStatbarPatch.cs" />
+    <Compile Include="src\Client\Patches\ImmersiveFpSystemRenderEntities.cs" />
     <Compile Include="src\Client\SpyglassOverlay.cs" />
     <Compile Include="src\Client\Util\GameWheel.cs" />
     <Compile Include="src\Client\ClientManipulation.cs" />

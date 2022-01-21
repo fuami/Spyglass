@@ -27,6 +27,7 @@ namespace spyglass.src
             BasePatch[] patches = new BasePatch[] {
                 new Client.Patches.OnBeforeRenderFrame3D(),
                 new Client.Patches.Set3DProjection(),
+                new Client.Patches.ImmersiveFpSystemRenderEntities(),
                 new Client.Patches.OnMouseMove(),
                 new Client.Patches.GuiDialogWorldMapPatch(), // minimap
                 new Client.Patches.HudStatbarPatch(), // health, and food
