@@ -10,10 +10,12 @@ using Vintagestory.API.MathTools;
 
 namespace spyglass.src.Client.Patches
 {
-    abstract class GuiDialogHideMultiPatch : BasePatch
+    class GuiDialogHudPatch : BasePatch
     {
         public static bool HideGui(GuiDialog target)
         {
+            if (target is ZoomWheel)
+                return false;
             return ClientManipulation.HideGuis();
         }
 
@@ -23,12 +25,12 @@ namespace spyglass.src.Client.Patches
 
             Label returnEqual = g.DefineLabel();
             output.Add(new CodeInstruction(OpCodes.Ldarg_0));
-            output.Add(new CodeInstruction(OpCodes.Call, typeof(GuiDialogHideMultiPatch).GetMethod("HideGui", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public)));
+            output.Add(new CodeInstruction(OpCodes.Call, typeof(GuiDialogHudPatch).GetMethod("HideGui", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public)));
             output.Add(new CodeInstruction(OpCodes.Brtrue, returnEqual));
 
             /* we are just adding this code to the beginning of the function
              * 
-             * if ( Patcher.HideGui(this) ) return;
+             * if ( Patcher.HideGui(this) ) return false;
              * 
              * After that its the same method.
              * 
@@ -40,6 +42,7 @@ namespace spyglass.src.Client.Patches
             output.AddRange(instructions);
 
             output.Add(jumpToLabel);
+            output.Add(new CodeInstruction(OpCodes.Ldc_I4_0));
             output.Add(new CodeInstruction(OpCodes.Ret));
 
             return output;
@@ -50,12 +53,11 @@ namespace spyglass.src.Client.Patches
             if (SpyglassMod.config.hideHUDWhileSpying)
             {
                 // patch to face interfaces.
-                var OnRenderGUI = GetTargetType().GetMethod("OnRenderGUI", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-                var adjustGuiOpacity_Transpiler = typeof(GuiDialogHideMultiPatch).GetMethod("AdjustGuiOpacity_Transpiler", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-                harmony.Patch(OnRenderGUI, transpiler: new HarmonyMethod(adjustGuiOpacity_Transpiler));
+                var ShouldReceiveRenderEvents = typeof(Vintagestory.API.Client.GuiDialog).GetMethod("ShouldReceiveRenderEvents", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                var adjustGuiOpacity_Transpiler = typeof(GuiDialogHudPatch).GetMethod("AdjustGuiOpacity_Transpiler", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                harmony.Patch(ShouldReceiveRenderEvents, transpiler: new HarmonyMethod(adjustGuiOpacity_Transpiler));
             }
         }
 
-        public abstract Type GetTargetType();
     }
 }

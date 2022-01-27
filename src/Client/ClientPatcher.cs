@@ -29,12 +29,7 @@ namespace spyglass.src
                 new Client.Patches.Set3DProjection(),
                 new Client.Patches.ImmersiveFpSystemRenderEntities(),
                 new Client.Patches.OnMouseMove(),
-                new Client.Patches.GuiDialogWorldMapPatch(), // minimap
-                new Client.Patches.HudStatbarPatch(), // health, and food
-                new Client.Patches.HudHotbarPatch(), // items and backpacks
-                new Client.Patches.HudElementCoordinatesPatch(), // player location
-                new Client.Patches.HudElementBlockInteractionHelpPatch(), // popup information on how to use stuff
-                new Client.Patches.HudIngameErrorPatch() // black bar at the bottom.
+                new Client.Patches.GuiDialogHudPatch()
             };
 
             foreach ( var patch in patches )

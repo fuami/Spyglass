@@ -80,15 +80,8 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Client\Patches\GuiDialogHideMultiPatch.cs" />
+    <Compile Include="src\Client\Patches\GuiDialogHudPatch.cs" />
     <Compile Include="src\Client\Patches\BasePatch.cs" />
-    <Compile Include="src\Client\Patches\GuiDialogWorldMapPatch.cs" />
-    <Compile Include="src\Client\Patches\HudDialogChatPatch.cs" />
-    <Compile Include="src\Client\Patches\HudElementBlockInteractionHelpPatch.cs" />
-    <Compile Include="src\Client\Patches\HudElementCoordinatesPatch.cs" />
-    <Compile Include="src\Client\Patches\HudHotbarPatch.cs" />
-    <Compile Include="src\Client\Patches\HudIngameErrorPatch.cs" />
-    <Compile Include="src\Client\Patches\HudStatbarPatch.cs" />
     <Compile Include="src\Client\Patches\ImmersiveFpSystemRenderEntities.cs" />
     <Compile Include="src\Client\SpyglassOverlay.cs" />
     <Compile Include="src\Client\Util\GameWheel.cs" />
