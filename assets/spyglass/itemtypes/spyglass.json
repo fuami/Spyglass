@@ -99,52 +99,6 @@
 		"spyglass-meteoriciron": 4,
 		"spyglass-steel": 5
 	},
-	"miningspeedbytype": {
-		"*-stone": {
-			"wood": 3,
-			"leaves": 1.6
-		},
-		"*-copper": {
-			"wood": 4,
-			"leaves": 2.4
-		},
-		"*-brass": {
-			"wood": 4.1,
-			"leaves": 2.5
-		},
-		"*-bismuthbronze": {
-			"wood": 4.4,
-			"leaves": 2.6
-		},
-		"*-tinbronze": {
-			"wood": 4.6,
-			"leaves": 3
-		},
-		"*-silver": {
-			"wood": 4.6,
-			"leaves": 3
-		},
-		"*-gold": {
-			"wood": 4.6,
-			"leaves": 3
-		},
-		"*-blackbronze": {
-			"wood": 4.7,
-			"leaves": 3.1
-		},
-		"*-iron": {
-			"wood": 5,
-			"leaves": 3.2
-		},
-		"*-meteoriciron": {
-			"wood": 5.5,
-			"leaves": 3.6
-		},
-		"*-steel": {
-			"wood": 6,
-			"leaves": 4
-		}
-	},
 	"durabilitybytype": {
 		"spyglass-gold": 35,
 		"spyglass-brass": 130,
