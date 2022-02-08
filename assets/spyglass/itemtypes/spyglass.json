@@ -34,13 +34,13 @@
 		},
 		"onDisplayTransform": {
 			"translation": {
-				"x": 0.03,
-				"y": -0.3725,
-				"z": -0.08
+				"x": -0.005,
+				"y": -0.2056,
+				"z": 0.055
 			},
 			"rotation": {
 				"x": 0,
-				"y": 0,
+				"y": -90,
 				"z": 1.5
 			},
 			"origin": {
@@ -48,7 +48,7 @@
 				"y": 0.25,
 				"z": 0.5
 			},
-			"scale": 0.6
+			"scale": 0.7
 		},
 		"rackable": true
 	},
