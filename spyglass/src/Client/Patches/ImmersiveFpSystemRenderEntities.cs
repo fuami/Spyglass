@@ -17,9 +17,9 @@ namespace spyglass.src.Client.Patches
 
         public static bool LoadIsRender(Entity ent)
         {
-            if ( ClientSettings.ImmersiveFpMode && ent is EntityPlayer && ClientManipulation.IsLocalPlayer((EntityPlayer)ent))
+            if ( ent is EntityPlayer && ClientManipulation.IsLocalPlayer((EntityPlayer)ent))
             {
-                if (ClientManipulation.getPercentZoomed() > 0.01)
+                if (ClientManipulation.getPercentZoomed() > 0.01 || ClientManipulation.AttemptingToZoom())
                 {
                     return false;
                 }

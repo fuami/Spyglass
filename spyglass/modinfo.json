@@ -11,6 +11,6 @@
 	"RequiredOnClient": true,
 	"RequiredOnServer": true,
 	"description": "Adds a spyglass so you can spy on your neighbors from the safety of your windmill!",
-	"version": "0.4.5",
+	"version": "0.4.6",
 	"Dependencies": {}
 }
