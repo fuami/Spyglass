@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeBuild", "CakeBuild\CakeBuild.csproj", "{C5245E46-DA4B-4C6E-8A9B-A9DFB9F7603E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spyglass", "spyglass\spyglass.csproj", "{29C39395-F75B-44D6-9A0D-405DF01FA44C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5245E46-DA4B-4C6E-8A9B-A9DFB9F7603E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5245E46-DA4B-4C6E-8A9B-A9DFB9F7603E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5245E46-DA4B-4C6E-8A9B-A9DFB9F7603E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5245E46-DA4B-4C6E-8A9B-A9DFB9F7603E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29C39395-F75B-44D6-9A0D-405DF01FA44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29C39395-F75B-44D6-9A0D-405DF01FA44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29C39395-F75B-44D6-9A0D-405DF01FA44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29C39395-F75B-44D6-9A0D-405DF01FA44C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E08B205-A1B5-4628-9606-35A3EB37D58A}
+	EndGlobalSection
+EndGlobal
