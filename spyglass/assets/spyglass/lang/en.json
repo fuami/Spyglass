@@ -1,6 +1,7 @@
 ﻿{
   "item-spytube-copper": "Copper spytube half",
   "item-spytube-tinbronze": "Tin bronze spytube half",
+  "item-spytube-bismuth": "Bismuth spytube half",
   "item-spytube-bismuthbronze": "Bismuth bronze spytube half",
   "item-spytube-blackbronze": "Black bronze spytube half",
   "item-spytube-gold": "Golden spytube half",
@@ -14,6 +15,7 @@
 
   "item-spyglass-copper": "Copper spyglass",
   "item-spyglass-tinbronze": "Tin bronze spyglass",
+  "item-spyglass-bismuth": "Bismuth spyglass",
   "item-spyglass-bismuthbronze": "Bismuth bronze spyglass",
   "item-spyglass-blackbronze": "Black bronze spyglass",
   "item-spyglass-gold": "Golden spyglass",

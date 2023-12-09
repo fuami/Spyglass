@@ -1,11 +1,12 @@
 {
-	ingredient: {
+	"ingredient": {
 		"type": "item",
 		"code": "game:ingot-*",
 		"name": "metal",
 		"allowedVariants": [
 			"copper",
 			"tinbronze",
+			"bismuth",
 			"bismuthbronze",
 			"blackbronze",
 			"gold",
@@ -16,7 +17,7 @@
 			"steel"
 		]
 	},
-	pattern: [
+	"pattern": [
 		[
 			"########",
 			"########",
@@ -28,6 +29,6 @@
 			"########"
 		]
 	],
-	name: "Spyglass Tube",
-	output: { type: "item", code: "spytube-{metal}"  }
+	"name": "Spyglass Tube",
+	"output": { "type": "item", "code": "spytube-{metal}"  }
 }

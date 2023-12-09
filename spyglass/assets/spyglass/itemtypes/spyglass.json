@@ -58,6 +58,7 @@
 			"states": [
 				"copper",
 				"tinbronze",
+				"bismuth",
 				"bismuthbronze",
 				"blackbronze",
 				"gold",
@@ -69,7 +70,6 @@
 			]
 		}
 	],
-	"damagedby": [ "blockbreaking", "attacking" ],
 	"shape": { "base": "item/spyglass" },
 	"behaviors": [
 		{
@@ -92,6 +92,7 @@
 		"spyglass-copper": 2,
 		"spyglass-gold": 2,
 		"spyglass-silver": 2,
+		"spyglass-bismuth": 2,
 		"spyglass-bismuthbronze": 3,
 		"spyglass-tinbronze": 3,
 		"spyglass-blackbronze": 3,
@@ -105,6 +106,7 @@
 		"spyglass-silver": 45,
 		"spyglass-copper": 125,
 		"spyglass-tinbronze": 200,
+		"spyglass-bismuth": 32,
 		"spyglass-bismuthbronze": 225,
 		"spyglass-blackbronze": 125,
 		"spyglass-iron": 450,
