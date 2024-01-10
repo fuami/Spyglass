@@ -14,8 +14,11 @@ namespace spyglass.src
 {
     class SpyglassMod : ModSystem
     {
+        internal const float MIN_ZOOM = 0.8f;
+        internal const float MAX_ZOOM = 1.0f;
+
         public static bool zoomed = false; // enabled by item.
-        internal static float zoomRatio = 0.97f; // adjusted via mouse-wheel while zoomed.
+        private static float zoomRatio = 0.0f; // adjusted via mouse-wheel while zoomed.
 
         private static ClientManipulation clientLogic;
         internal static double gameRuntime = 0; // used by Util/ClientTime
@@ -23,14 +26,32 @@ namespace spyglass.src
         private static string configFile = "spyglass.json";
         private static SpyglassConfig loadedConfig;
 
+        internal static float getZoomRatio()
+        {
+            return zoomRatio;
+        }
+
+        internal static void setZoomRatio(float value)
+        {
+            zoomRatio = value;
+            if (zoomRatio < SpyglassMod.MIN_ZOOM) zoomRatio = MIN_ZOOM;
+            if (zoomRatio > SpyglassMod.MAX_ZOOM) zoomRatio = MAX_ZOOM;
+        }
+
         public static SpyglassConfig config
         {
             get => loadedConfig;
         }
 
+        internal static void setRatioToDefault()
+        {
+            setZoomRatio(MIN_ZOOM + (MAX_ZOOM - MIN_ZOOM) * config.defaultZoomPosition);
+        }
+
         internal static void ResetZoomRatio()
         {
-            zoomRatio = 0.97f;
+            if (!config.preserveZoomBetweenUses)
+                setRatioToDefault();
         }
 
         public override void Start(ICoreAPI api)
@@ -56,6 +77,7 @@ namespace spyglass.src
             clientLogic = new ClientManipulation(api);
             api.Gui.RegisterDialog(new[]{ new ZoomWheel(api) });
             api.Event.RegisterGameTickListener(OnGameTick, 4); // 250 max fps - This is a simple light weight add too, so shouldn't make a diffrence.
+            setRatioToDefault();
         }
 
         private void OnGameTick(float dt)

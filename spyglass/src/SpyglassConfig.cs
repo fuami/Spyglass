@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace spyglass.src
 {
+    enum VignetteStyle
+    {
+        circle, // what it says.
+        square, // what it says
+        box, // rather then a square it cuts off the edges keeping screen aspect ratio mostly intact.
+        edge
+    };
+
     class SpyglassConfig
     {
+        public String vignetteStyle = "edge";
+
         public int edgeSize = 32; // thickness of edge
         public float edgeOpacity = 0.5f; // transparency of edge
 
@@ -16,6 +26,10 @@ namespace spyglass.src
 
         public float transitionTimeBasis = 525f; // ms to do a complete zoom ( rougly ), higher slows animation, lower quickens it.
         public float minimumZoomTime = 250f; // minimum time using spyglass.
+        public float defaultZoomPosition = 0.85f;
+
+        public float zoomWheelSpeedMultiplier = 1.0f;
+        public bool invertZoomWheel = false;
 
         public float mouseSensitivityAdjustment = 2.0f; // 200% - raise to make panning slower when using spyglass
 
@@ -23,5 +37,17 @@ namespace spyglass.src
         public bool enableZoomInThirdPerson = true; // if disabled you will just see your character use the spyglass.
 
         public bool hideHUDWhileSpying = true; // removes minimap/coordinates/statsbar/hotbar to focus only on the what your looking at.
+        public bool preserveZoomBetweenUses = false; // restores previous zoom when using spyglass
+        
+        public VignetteStyle GetVinetteStyle()
+        {
+            try
+            {
+                return Enum.Parse<VignetteStyle>(SpyglassMod.config.vignetteStyle);
+            }
+            catch { }
+
+            return VignetteStyle.edge;
+        }
     }
 }

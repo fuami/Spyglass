@@ -1,4 +1,5 @@
-﻿using System;
+﻿using spyglass.src;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ using Vintagestory.Client.NoObf;
 namespace spyglass.src.Client
 {
     class ZoomWheel : GameWheel
-	{
-		public ZoomWheel(ICoreClientAPI capi) : base(capi)
+    {
+        public ZoomWheel(ICoreClientAPI capi) : base(capi)
 		{
 		}
 
@@ -28,7 +29,8 @@ namespace spyglass.src.Client
 		public override GuiComposer adjustCompose(GuiComposer composer)
 		{
 			composer.Color = new Vec4f(1f, 1f, 1f, 0f);
-			return composer.AddInteractiveElement(new SpyglassOverlay(capi,ElementBounds.Fill, SpyglassMod.config.edgeSize, SpyglassMod.config.glassColor, SpyglassMod.config.glassBrightness));
+			VignetteStyle style = SpyglassMod.config.GetVinetteStyle();
+            return composer.AddInteractiveElement(new SpyglassOverlay(capi,ElementBounds.Fill, SpyglassMod.config.edgeSize, SpyglassMod.config.glassColor, SpyglassMod.config.glassBrightness, style));
 		}
 
 		public override void OnMouseWheel(MouseWheelEventArgs args)
@@ -36,9 +38,8 @@ namespace spyglass.src.Client
 			if (SpyglassMod.zoomed && SpyglassMod.config.enableMouseWheelAdjustment)
 			{
 				args.SetHandled(true);
-				SpyglassMod.zoomRatio += args.delta / 40.0f;
-				if (SpyglassMod.zoomRatio < 0.8f) SpyglassMod.zoomRatio = 0.8f;
-				if (SpyglassMod.zoomRatio > 1f) SpyglassMod.zoomRatio = 1f;
+				float fDelta = args.delta;
+                SpyglassMod.setZoomRatio( SpyglassMod.getZoomRatio() + fDelta / ClientManipulation.GetWheelAdjustment() );
 			}
 		}
 	}

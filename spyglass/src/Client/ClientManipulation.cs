@@ -23,8 +23,8 @@ namespace spyglass.src
 
 
         // settings.
-        private static readonly float percentZoomed = 0.08f;
-        private static readonly float percentUnzoomed = 1.0f;
+        private const float percentZoomed = 0.08f;
+        private const float percentUnzoomed = 1.0f;
 
         // animation state
         private static UpdateableTween zoomAnimation;
@@ -93,6 +93,16 @@ namespace spyglass.src
             return 1.0f;
         }
 
+        public static float GetWheelAdjustment()
+        {
+            float adjust = 40.0f / Math.Abs(SpyglassMod.config.zoomWheelSpeedMultiplier);
+
+            if (SpyglassMod.config.invertZoomWheel)
+                return -adjust;
+
+            return adjust;
+        }
+
         public static bool AttemptingToZoom()
         {
             // validate if we can in fact, zoom.
@@ -126,7 +136,7 @@ namespace spyglass.src
 
             if (isZoomed)
             {
-                return zoomAnimation.getValue(SpyglassMod.zoomRatio);
+                return zoomAnimation.getValue(SpyglassMod.getZoomRatio());
             }
             else
             {

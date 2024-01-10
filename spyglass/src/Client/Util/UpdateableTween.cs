@@ -25,7 +25,7 @@ namespace spyglass.src.Client
 
         public float getValue( float target )
         {
-            if ( Math.Abs(target- targetValue) < 0.01)
+            if ( Math.Abs(target- targetValue) < 0.001)
             {
                 return CosineSmooth(startValue, targetValue, startTime.ElapsedMilliseconds);
             }
