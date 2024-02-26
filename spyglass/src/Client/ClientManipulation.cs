@@ -106,13 +106,22 @@ namespace spyglass.src
         public static bool AttemptingToZoom()
         {
             // validate if we can in fact, zoom.
-            int slotIndex = capi.World.Player.InventoryManager.ActiveHotbarSlotNumber;
-            ItemSlot itemSlot = capi.World.Player.InventoryManager.GetHotbarInventory()[slotIndex];
+            IPlayerInventoryManager manager = capi?.World?.Player?.InventoryManager;
 
-            AssetLocation code = itemSlot?.Itemstack?.Item?.Code;
-            if (code != null && code.BeginsWith("spyglass", "spyglass-"))
+            if (manager != null)
             {
-                return SpyglassMod.zoomed;
+                int slotIndex = manager.ActiveHotbarSlotNumber;
+                IInventory inv = manager.GetHotbarInventory();
+                if (inv != null && slotIndex >= 0 && slotIndex < inv.Count())
+                {
+                    ItemSlot itemSlot = inv[slotIndex];
+
+                    AssetLocation code = itemSlot?.Itemstack?.Item?.Code;
+                    if (code != null && code.BeginsWith("spyglass", "spyglass-"))
+                    {
+                        return SpyglassMod.zoomed;
+                    }
+                }
             }
 
             return SpyglassMod.zoomed = false;
