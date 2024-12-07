@@ -39,7 +39,7 @@ namespace spyglass.src.Client.Patches
         public override void patch(Harmony harmony)
         {
             // patch to adjust FOV without editing settings.
-            var Set3DProjection = typeof(ClientMain).GetMethod("Set3DProjection", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+            var Set3DProjection = typeof(ClientMain).GetMethod("Set3DProjection", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, new [] { typeof(float), typeof(float) });
             var adjustFov_Transpiler = typeof(Set3DProjection).GetMethod("AdjustFov_Transpiler", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
             harmony.Patch(Set3DProjection, transpiler: new HarmonyMethod(adjustFov_Transpiler));
         }
