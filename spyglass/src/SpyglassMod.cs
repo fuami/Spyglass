@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using spyglass.src.Client;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Server;
 using Vintagestory.Client.NoObf;
+using Vintagestory.Server;
 
 namespace spyglass.src
 {
@@ -75,9 +77,19 @@ namespace spyglass.src
         public override void StartClientSide(ICoreClientAPI api)
         {
             clientLogic = new ClientManipulation(api);
+            api.Network.RegisterChannel("spyglassChannel")
+                .RegisterMessageType(typeof(SpyglassConfig))
+                .SetMessageHandler<SpyglassConfig>(serverConfig => loadedConfig = serverConfig);
             api.Gui.RegisterDialog(new[]{ new ZoomWheel(api) });
             api.Event.RegisterGameTickListener(OnGameTick, 4); // 250 max fps - This is a simple light weight add too, so shouldn't make a diffrence.
             setRatioToDefault();
+        }
+
+        public override void StartServerSide(ICoreServerAPI api)
+        {
+            var serverNetworkChannel = api.Network.RegisterChannel("spyglassChannel")
+                .RegisterMessageType(typeof(SpyglassConfig));
+            api.Event.PlayerJoin += byPlayer => serverNetworkChannel.SendPacket(loadedConfig, byPlayer);
         }
 
         private void OnGameTick(float dt)

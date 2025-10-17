@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProtoBuf;
 
 namespace spyglass.src
 {
@@ -14,6 +15,7 @@ namespace spyglass.src
         edge
     };
 
+    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     class SpyglassConfig
     {
         public String vignetteStyle = "edge";
