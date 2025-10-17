@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using spyglass.src.Client;
+using spyglass.src.Network;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
@@ -78,8 +79,13 @@ namespace spyglass.src
         {
             clientLogic = new ClientManipulation(api);
             api.Network.RegisterChannel("spyglassChannel")
-                .RegisterMessageType(typeof(SpyglassConfig))
-                .SetMessageHandler<SpyglassConfig>(serverConfig => loadedConfig = serverConfig);
+                .RegisterMessageType(typeof(ServerConfigSyncPacket))
+                .SetMessageHandler<ServerConfigSyncPacket>(serverConfig =>
+                {
+                    loadedConfig.vignetteStyle = serverConfig.vignetteStyle.ToString();
+                    loadedConfig.edgeOpacity = serverConfig.edgeOpacity;
+                    loadedConfig.edgeSize = serverConfig.edgeSize;
+                });
             api.Gui.RegisterDialog(new[]{ new ZoomWheel(api) });
             api.Event.RegisterGameTickListener(OnGameTick, 4); // 250 max fps - This is a simple light weight add too, so shouldn't make a diffrence.
             setRatioToDefault();
@@ -88,8 +94,19 @@ namespace spyglass.src
         public override void StartServerSide(ICoreServerAPI api)
         {
             var serverNetworkChannel = api.Network.RegisterChannel("spyglassChannel")
-                .RegisterMessageType(typeof(SpyglassConfig));
-            api.Event.PlayerJoin += byPlayer => serverNetworkChannel.SendPacket(loadedConfig, byPlayer);
+                .RegisterMessageType(typeof(ServerConfigSyncPacket));
+            api.Event.PlayerJoin += byPlayer =>
+            {
+                if (loadedConfig.overrideClientConfig)
+                {
+                    serverNetworkChannel.SendPacket(new ServerConfigSyncPacket()
+                    {
+                        edgeOpacity = 1.0f,
+                        edgeSize = 16,
+                        vignetteStyle = VignetteStyle.circle
+                    }, byPlayer);
+                }
+            };
         }
 
         private void OnGameTick(float dt)
