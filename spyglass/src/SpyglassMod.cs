@@ -101,9 +101,9 @@ namespace spyglass.src
                 {
                     serverNetworkChannel.SendPacket(new ServerConfigSyncPacket()
                     {
-                        edgeOpacity = 1.0f,
-                        edgeSize = 16,
-                        vignetteStyle = VignetteStyle.circle
+                        edgeOpacity = loadedConfig.edgeOpacity,
+                        edgeSize = loadedConfig.edgeSize,
+                        vignetteStyle = loadedConfig.GetVinetteStyle()
                     }, byPlayer);
                 }
             };
