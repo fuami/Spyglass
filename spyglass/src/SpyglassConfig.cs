@@ -39,7 +39,7 @@ namespace spyglass.src
         public bool hideHUDWhileSpying = true; // removes minimap/coordinates/statsbar/hotbar to focus only on the what your looking at.
         public bool preserveZoomBetweenUses = false; // restores previous zoom when using spyglass
 
-        public bool overrideClientConfig = true; // whether the server overrides connected clients' vignette settings
+        public bool overrideClientConfig = false; // whether the server overrides connected clients' vignette settings
         
         public VignetteStyle GetVinetteStyle()
         {
