@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace spyglass.src
 {
-    enum VignetteStyle
+    public enum VignetteStyle
     {
         circle, // what it says.
         square, // what it says
@@ -38,6 +38,8 @@ namespace spyglass.src
 
         public bool hideHUDWhileSpying = true; // removes minimap/coordinates/statsbar/hotbar to focus only on the what your looking at.
         public bool preserveZoomBetweenUses = false; // restores previous zoom when using spyglass
+
+        public bool overrideClientConfig = true; // whether the server overrides connected clients' vignette settings
         
         public VignetteStyle GetVinetteStyle()
         {
