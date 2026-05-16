@@ -30,5 +30,6 @@
 		]
 	],
 	"name": "Spyglass Tube",
+	"code": "spyglass:spytube-{metal}",
 	"output": { "type": "item", "code": "spytube-{metal}"  }
 }

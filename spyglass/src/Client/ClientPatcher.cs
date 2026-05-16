@@ -47,7 +47,7 @@ namespace spyglass.src
 
         public void Stop()
         {
-            harmony.UnpatchAll();
+            harmony.UnpatchAll("spyglass");
         }
     }
 }
