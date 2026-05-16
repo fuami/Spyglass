@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${env:VINTAGE_STORY}/Vintagestory.exe",
             "linux": {
-                "program": "${env:VINTAGE_STORY}/Vintagestory"
+                "program": "${env:VINTAGE_STORY}/Vintagestory.dll"
             },
             "osx": {
                 "program": "${env:VINTAGE_STORY}/Vintagestory"
